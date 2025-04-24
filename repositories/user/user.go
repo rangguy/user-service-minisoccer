@@ -2,9 +2,9 @@ package repositories
 
 import (
 	"context"
+	"errors"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
-	"time"
 	errWrap "user-service/common/error"
 	errConstant "user-service/constants/error"
 	"user-service/domain/dto"
@@ -24,7 +24,7 @@ type IUserRepository interface {
 }
 
 func NewUserRepository(db *gorm.DB) IUserRepository {
-	return &UserRepository(db: db)
+	return &UserRepository{db}
 }
 
 func (r *UserRepository) Register(ctx context.Context, req *dto.RegisterRequest) (*models.User, error) {
@@ -48,11 +48,11 @@ func (r *UserRepository) Register(ctx context.Context, req *dto.RegisterRequest)
 
 func (r *UserRepository) Update(ctx context.Context, req *dto.UpdateRequest, uuid string) (*models.User, error) {
 	user := models.User{
-		Name: req.Name,
-		Username: req.Username,
-		Password: req.Password,
+		Name:        req.Name,
+		Username:    req.Username,
+		Password:    req.Password,
 		PhoneNumber: req.PhoneNumber,
-		Email: req.Email,
+		Email:       req.Email,
 	}
 
 	err := r.db.WithContext(ctx).Where("uuid = ?", uuid).Updates(&user).Error
@@ -63,14 +63,41 @@ func (r *UserRepository) Update(ctx context.Context, req *dto.UpdateRequest, uui
 	return &user, nil
 }
 
-func (r *UserRepository) FindByUsername(context.Context, string) (*models.User, error) {
+func (r *UserRepository) FindByUsername(ctx context.Context, username string) (*models.User, error) {
+	var user models.User
+	err := r.db.WithContext(ctx).Preload("Role").Where("username = ?", username).First(&user).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errConstant.ErrUserNotFound
+		}
+		return nil, errWrap.WrapError(errConstant.ErrSQLError)
+	}
 
+	return &user, nil
 }
 
-func (r *UserRepository) FindByEmail(context.Context, string) (*models.User, error) {
+func (r *UserRepository) FindByEmail(ctx context.Context, email string) (*models.User, error) {
+	var user models.User
+	err := r.db.WithContext(ctx).Preload("Role").Where("email = ?", email).First(&user).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errConstant.ErrUserNotFound
+		}
+		return nil, errWrap.WrapError(errConstant.ErrSQLError)
+	}
 
+	return &user, nil
 }
 
-func (r *UserRepository) FindByUUID(context.Context, string) (*models.User, error) {
+func (r *UserRepository) FindByUUID(ctx context.Context, uuid string) (*models.User, error) {
+	var user models.User
+	err := r.db.WithContext(ctx).Preload("Role").Where("uuid = ?", uuid).First(&user).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errConstant.ErrUserNotFound
+		}
+		return nil, errWrap.WrapError(errConstant.ErrSQLError)
+	}
 
+	return &user, nil
 }
