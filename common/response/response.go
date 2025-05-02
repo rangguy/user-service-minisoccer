@@ -23,7 +23,7 @@ type ParamHTTPResp struct {
 	Token   *string
 }
 
-func HttpResp(param ParamHTTPResp) {
+func HttpResponse(param ParamHTTPResp) {
 	if param.Err == nil {
 		param.Gin.JSON(param.Code, Response{
 			Status:  constants.Success,
