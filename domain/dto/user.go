@@ -36,11 +36,11 @@ type RegisterResponse struct {
 }
 
 type UpdateRequest struct {
-	Name            string `json:"name" validate:"required"`
-	Username        string `json:"username" validate:"required"`
-	Password        string `json:"password,omitempty"`
-	ConfirmPassword string `json:"confirmPassword,omitempty"`
-	Email           string `json:"email" validate:"required,email"`
-	PhoneNumber     string `json:"phoneNumber" validate:"required,number"`
+	Name            string  `json:"name" validate:"required"`
+	Username        string  `json:"username" validate:"required"`
+	Password        *string `json:"password,omitempty"`
+	ConfirmPassword *string `json:"confirmPassword,omitempty"`
+	Email           string  `json:"email" validate:"required,email"`
+	PhoneNumber     string  `json:"phoneNumber" validate:"required,number"`
 	RoleID          uint
 }
