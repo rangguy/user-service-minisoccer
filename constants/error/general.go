@@ -5,7 +5,7 @@ import "errors"
 var (
 	ErrInternalServerError = errors.New("internal server error")
 	ErrSQLError            = errors.New("database server failed to execute query")
-	ErrToManyRequests      = errors.New("too many requests")
+	ErrTooManyRequests     = errors.New("too many requests")
 	ErrUnauthorized        = errors.New("unauthorized")
 	ErrInvalidToken        = errors.New("invalid token")
 	ErrForbidden           = errors.New("forbidden")
@@ -14,7 +14,7 @@ var (
 var GeneralErrors = []error{
 	ErrInternalServerError,
 	ErrSQLError,
-	ErrToManyRequests,
+	ErrTooManyRequests,
 	ErrUnauthorized,
 	ErrInvalidToken,
 	ErrForbidden,
