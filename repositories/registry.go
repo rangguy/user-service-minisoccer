@@ -13,7 +13,7 @@ type IRepositoryRegistry interface {
 	GetUser() repositories.IUserRepository
 }
 
-func NewRegistry(db *gorm.DB) *Registry {
+func NewRepositoryRegistry(db *gorm.DB) *Registry {
 	return &Registry{db}
 }
 
