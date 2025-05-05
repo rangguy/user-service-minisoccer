@@ -16,5 +16,5 @@ type User struct {
 	RoleID      uint      `gorm:"type:uint;not null"`
 	CreatedAt   *time.Time
 	UpdatedAt   *time.Time
-	Role        Role `gorm:"foreignKey:role_id;references:id;constraint:OnUpdate:CASCADE,OnDelete"`
+	Role        Role `gorm:"foreignKey:role_id;references:id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 }

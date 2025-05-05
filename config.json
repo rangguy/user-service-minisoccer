@@ -5,10 +5,10 @@
   "signatureKey": "AsdaewWAasdqwewqe",
   "database": {
     "host": "host.docker.internal",
-    "port": 5432,
+    "port": 5433,
     "name": "user_service",
-    "username": "root",
-    "password": "barca1899",
+    "username": "postgres",
+    "password": "postgresql",
     "maxOpenConnection": 10,
     "maxLifetimeConnection": 10,
     "maxIdleConnection": 10,
