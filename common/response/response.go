@@ -31,6 +31,7 @@ func HttpResponse(param ParamHTTPResp) {
 			Data:    param.Data,
 			Token:   param.Token,
 		})
+		return
 	}
 
 	message := errConstant.ErrInternalServerError.Error()
