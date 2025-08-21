@@ -53,7 +53,7 @@ pipeline {
     stage('Checkout Code') {
       steps {
         script {
-          def repoUrl = 'https://github.com/Mini-Soccer-Project/user-service.git'
+          def repoUrl = 'https://github.com/rangguy/user-service-minisoccer.git'
 
           checkout([$class: 'GitSCM',
             branches: [
