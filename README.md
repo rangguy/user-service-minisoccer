@@ -1,5 +1,57 @@
 <h3>User Service</h3>
 
+## 🧩 Related Microservices
+
+The User Service is part of the **MiniSoccer Platform**, which is built using a **microservices architecture**. Each service is responsible for a specific domain while communicating with others through APIs, message brokers, and payment gateway.
+
+Below are the other related microservices:
+
+---
+
+### 🔗 Field Service (field-service-minisoccer)
+**Repository:** https://github.com/rangguy/field-service-minisoccer
+
+**Description:**
+Responsible for managing all data related to mini soccer fields, including:
+- Field details and metadata
+- Availability schedules
+- Pricing configuration
+- Integration with the Order Service for slot availability checks
+
+This service provides APIs to check field details and availability before a user creates an order.
+
+---
+
+### 🔗 Payment Service (payment-service-minisoccer)
+**Repository:** https://github.com/rangguy/payment-service-minisoccer
+
+**Description:**
+Handles all payment processes within the platform, such as:
+- Transaction initialization
+- Integration with Midtrans
+- Handling payment status callbacks/webhooks
+- Storing payment history
+
+This service updates the Order Service once a transaction is confirmed.
+
+---
+
+### 🔗 Order Service (order-service-minisoccer)
+**Repository:** https://github.com/rangguy/order-service-minisoccer
+
+**Description:**
+Acts as the central service for processing bookings and orders, including:
+- Creating new orders
+- Validating field availability (via Field Service)
+- Linking orders with users (via User Service)
+- Sending payment instructions to the Payment Service
+- Updating order status based on payment results
+
+Order Service acts as the main coordinator between the User, Field, and Payment Services.
+
+---
+
+
 <h3>Description</h3>
 
 <p>This repository will be used to manage user and auth</p>
@@ -50,4 +102,3 @@ docker-compose up -d --build --force-recreate
 ```bash
 make build
 ```
-
