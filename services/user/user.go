@@ -162,7 +162,7 @@ func (u *UserService) Update(ctx context.Context, req *dto.UpdateRequest, uuid s
 		return nil, err
 	}
 
-	isUsernameExist := u.isUsernameExist(ctx, uuid)
+	isUsernameExist := u.isUsernameExist(ctx, req.Username)
 	if isUsernameExist && user.Username != req.Username {
 		checkUsername, err = u.repository.GetUser().FindByUsername(ctx, req.Username)
 		if err != nil {
@@ -174,7 +174,7 @@ func (u *UserService) Update(ctx context.Context, req *dto.UpdateRequest, uuid s
 		}
 	}
 
-	isEmailExist := u.isEmailExist(ctx, uuid)
+	isEmailExist := u.isEmailExist(ctx, req.Email)
 	if isEmailExist && user.Email != req.Email {
 		checkEmail, err = u.repository.GetUser().FindByEmail(ctx, req.Email)
 		if err != nil {
